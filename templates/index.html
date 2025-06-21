@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube 자막 추출기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 600;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #c33;
+        }
+        
+        .info {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 14px;
+        }
+        
+        .examples {
+            margin-top: 1rem;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .examples strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 YouTube 자막 추출기</h1>
+        
+        {% if error %}
+        <div class="error">
+            ❌ {{ error }}
+        </div>
+        {% endif %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="video_id">YouTube URL 또는 Video ID:</label>
+                <input type="text" id="video_id" name="video_id" 
+                       placeholder="https://www.youtube.com/watch?v=VIDEO_ID 또는 VIDEO_ID"
+                       value="{{ request.query_params.get('video_id', '') }}"
+                       required>
+            </div>
+            
+            <button type="submit">자막 추출하기</button>
+        </form>
+        
+        <div class="info">
+            💡 <strong>사용법:</strong>
+            <ul style="margin-top: 8px; margin-left: 20px;">
+                <li>YouTube URL을 붙여넣거나</li>
+                <li>Video ID만 입력하세요</li>
+            </ul>
+        </div>
+        
+        <div class="examples">
+            <strong>예시:</strong><br>
+            • https://www.youtube.com/watch?v=dQw4w9WgXcQ<br>
+            • https://youtu.be/dQw4w9WgXcQ<br>
+            • dQw4w9WgXcQ
+        </div>
+    </div>
+</body>
+</html> 
